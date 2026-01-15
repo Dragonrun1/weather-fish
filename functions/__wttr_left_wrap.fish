@@ -1,4 +1,9 @@
 function __wttr_left_wrap
+    # skip transient prompt re‑rendering
+    if test "$fish_transient_prompt" = "1"
+        return
+    end
+
     functions -q __fish_prompt_orig; and return
     functions -c fish_prompt __fish_prompt_orig
 
