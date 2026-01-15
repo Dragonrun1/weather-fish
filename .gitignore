@@ -1,5 +1,6 @@
 *~
 .fish_history
 .cache/
+.output.txt
 
 .idea/
