@@ -114,6 +114,9 @@ All configuration options are optional and global.
 
 ### Location
 
+By default, `weather-fish` uses your IP address to determine your location. You
+can override this by setting a default location:
+
 ```fish
 set -g WTTR_DEFAULT_LOCATION "New York"
 ```
