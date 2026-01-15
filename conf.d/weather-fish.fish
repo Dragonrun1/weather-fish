@@ -47,6 +47,8 @@ if type -q tide
 end
 
 # Update weather opportunistically after prompt render
-function __weather_fish_prompt_hook --on-event fish_prompt
-    __wttr_fetch
+functions -q __weather_fish_prompt_hook; or begin
+    function __weather_fish_prompt_hook --on-event fish_prompt
+        __wttr_fetch
+    end
 end

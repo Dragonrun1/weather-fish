@@ -11,6 +11,11 @@ function __wttr_left_wrap
     functions -c fish_prompt __fish_prompt_orig
 
     function fish_prompt
+        if test "$fish_transient_prompt" = "1"
+            __fish_prompt_orig
+            return
+        end
+
         __wttr_dir_enabled; and begin
             set -l w (wttr)
             test -n "$w"; and echo -n "$w"

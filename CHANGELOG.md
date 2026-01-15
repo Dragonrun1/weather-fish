@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.15] - 2026-01-15
+
+### Fixed
+- Prevent duplicate weather output during Fish 4.x transient prompt renders.
+- Avoid duplicate background fetch hooks when the plugin is re-sourced or reloaded.
+
+### Compatibility
+- Verified compatibility with Fish shell 3.8 and newer, including Fish 4.x.
+
 ## [v0.2.14] - 2026-01-15
 
 ### Added
