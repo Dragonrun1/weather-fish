@@ -306,7 +306,7 @@ Weather data is fetched:
 
 ## Dependencies
 
-  * Fish shell ≥ 3.6
+  * Fish shell ≥ 3.6 (uses `argparse`)
   * curl
 
 No additional dependencies are required.
