@@ -192,14 +192,14 @@ Set any of these to `0` to force-enable weather in that environment
 ```fish
 set -g WTTR_CACHE_TTL 900
 set -g WTTR_BACKOFF 1800
-set -g WTTR_TIMEOUT 2
+set -g WTTR_TIMEOUT 30
 ```
 
 | Variable | Default | Description |
 |----------|---------|-------------|
 | `WTTR_CACHE_TTL` | `900` | Cache duration in seconds (15 minutes). |
 | `WTTR_BACKOFF` | `1800` | Backoff duration in seconds after a failed fetch (30 minutes). |
-| `WTTR_TIMEOUT` | `2` | Network timeout for `curl` in seconds. |
+| `WTTR_TIMEOUT` | `30` | Network timeout for `curl` in seconds. |
 
 ## Per-directory disable
 
@@ -219,7 +219,7 @@ This is useful for:
 ## Performance and caching
 
   * Cache TTL: 15 minutes (configurable via `WTTR_CACHE_TTL`)
-  * Network timeout: 2 seconds (configurable via `WTTR_TIMEOUT`)
+  * Network timeout: 30 seconds (configurable via `WTTR_TIMEOUT`)
   * Slow-network backoff: 30 minutes (configurable via `WTTR_BACKOFF`)
   * Cache location:
     * `$XDG_CACHE_HOME/wttr/`

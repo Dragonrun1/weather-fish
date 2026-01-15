@@ -9,7 +9,7 @@ set -q WTTR_DISABLE_TIDE;       or set -g WTTR_DISABLE_TIDE 1
 # caching and timeouts
 set -q WTTR_CACHE_TTL;          or set -g WTTR_CACHE_TTL 900
 set -q WTTR_BACKOFF;            or set -g WTTR_BACKOFF 1800
-set -q WTTR_TIMEOUT;            or set -g WTTR_TIMEOUT 2
+set -q WTTR_TIMEOUT;            or set -g WTTR_TIMEOUT 30
 
 # left prompt only if safe
 if not type -q starship; and not set -q _tide_prompt_version
