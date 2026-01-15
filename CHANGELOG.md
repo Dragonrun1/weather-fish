@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v0.2.9] - 2026-01-15
+
+### Added
+- Native Tide prompt integration via `_tide_item_wttr`.
+- Automatic addition of `wttr` to `tide_left_prompt_items` if Tide is detected and the item is not already configured.
+
+### Changed
+- Default weather display for Tide is now the left prompt (as a Tide item) instead of the right prompt fallback.
+
 ## [v0.2.8] - 2026-01-15
 
 ### Fixed

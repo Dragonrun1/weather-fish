@@ -8,8 +8,14 @@ function fish_right_prompt
         return
     end
 
-    if type -q starship; or type -q tide
+    if type -q starship
         __wttr_dir_enabled; or return
         wttr
+    else if type -q tide
+        # Only use right prompt fallback if wttr is not in tide items
+        if not contains wttr $tide_left_prompt_items; and not contains wttr $tide_right_prompt_items
+            __wttr_dir_enabled; or return
+            wttr
+        end
     end
 end

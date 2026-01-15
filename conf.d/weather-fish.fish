@@ -19,6 +19,13 @@ if not type -q starship; and not type -q tide
     __wttr_left_wrap
 end
 
+# Tide integration
+if type -q tide
+    if not contains wttr $tide_left_prompt_items; and not contains wttr $tide_right_prompt_items
+        set -gp tide_left_prompt_items wttr
+    end
+end
+
 # Update weather opportunistically after prompt render
 function __weather_fish_prompt_hook --on-event fish_prompt
     __wttr_fetch

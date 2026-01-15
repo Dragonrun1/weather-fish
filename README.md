@@ -90,7 +90,7 @@ Restart your shell or reload the configuration.
 |----------------|-------------------------|--------------------------|
 | **Plain Fish** | Left prompt (prepended) | Wraps `fish_prompt`      |
 | **Starship**   | Right prompt            | Uses `fish_right_prompt` |
-| **Tide**       | Right prompt            | Uses `fish_right_prompt` |
+| **Tide**       | Left prompt             | Uses Tide's item system  |
 | **SSH**        | Disabled (default)      | Checks `$SSH_CONNECTION` |
 
 ### Command usage
@@ -228,21 +228,21 @@ To match your prompt's background (and avoid "white triangles" or broken segment
 set -g WTTR_COLOR "--background blue cyan"
 ```
 
-By default, `weather-fish` automatically detects Tide or Starship and places the weather in the right prompt to avoid interfering with their complex left prompts.
+By default, `weather-fish` automatically detects Tide or Starship and places the weather in the prompt to avoid interfering with their complex setups. For Tide, it adds itself as a prompt item. For Starship, it uses the right prompt.
 
-### Manual Left Prompt Integration (Tide)
+### Tide Integration
 
-If you prefer to have the weather in your Tide left prompt:
+`weather-fish` provides a custom Tide item `wttr`. It automatically attempts to add `wttr` to your `tide_left_prompt_items` if it's not already present in either left or right prompt items.
 
-1.  **Disable automatic right prompt**: Set `WTTR_DISABLE_TIDE` to `0` in your `config.fish`.
+If you want to move it to the right prompt:
+1.  **Remove from left prompt**:
     ```fish
-    set -g WTTR_DISABLE_TIDE 0
+    set -e (contains -i wttr $tide_left_prompt_items)
     ```
-2.  **Add to Tide items**: Add `wttr` to your `tide_left_prompt_items`.
+2.  **Add to right prompt**:
     ```fish
-    set -gp tide_left_prompt_items wttr
+    set -gp tide_right_prompt_items wttr
     ```
-3.  **Configure colors**: Match Tide's background colors using `WTTR_COLOR` as described in the [Colorized output](#colorized-output) section.
 
 ### SSH and prompt framework guards
 
