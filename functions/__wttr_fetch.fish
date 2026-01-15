@@ -38,11 +38,13 @@ function __wttr_fetch --description "Fetch wttr.in with TTL, guards, presets"
     # ---- url ---------------------------------------------------------------
     set -l format (__wttr_format)
     set -l url "https://wttr.in?format=$format"
-    set -q WTTR_DEFAULT_LOCATION; and \
-        set url "https://wttr.in/$WTTR_DEFAULT_LOCATION?format=$format"
+    if set -q WTTR_DEFAULT_LOCATION
+        set -l location (string replace -a ' ' '+' "$WTTR_DEFAULT_LOCATION")
+        set url "https://wttr.in/$location?format=$format"
+    end
 
     # ---- fetch -------------------------------------------------------------
-    set -l out (curl -fsS --max-time $timeout $url ^/dev/null)
+    set -l out (curl -fsS --max-time $timeout "$url" 2>/dev/null)
     if test $status -ne 0 -o -z "$out"
         test -n "$last"; or set last 0
         string match -qr '^[0-9]+$' "$last"; or set last 0
