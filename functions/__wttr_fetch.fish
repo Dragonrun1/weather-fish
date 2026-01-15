@@ -11,9 +11,9 @@ function __wttr_fetch --description "Fetch wttr.in with TTL, guards, presets"
     type -q curl; or return
 
     # ---- constants ---------------------------------------------------------
-    set -l ttl 900
-    set -l backoff 1800
-    set -l timeout 2
+    set -l ttl $WTTR_CACHE_TTL
+    set -l backoff $WTTR_BACKOFF
+    set -l timeout $WTTR_TIMEOUT
     set -l now (date +%s)
 
     # ---- cache -------------------------------------------------------------

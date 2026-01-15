@@ -6,6 +6,11 @@ set -q WTTR_DISABLE_SSH;        or set -g WTTR_DISABLE_SSH 1
 set -q WTTR_DISABLE_STARSHIP;  or set -g WTTR_DISABLE_STARSHIP 1
 set -q WTTR_DISABLE_TIDE;       or set -g WTTR_DISABLE_TIDE 1
 
+# caching and timeouts
+set -q WTTR_CACHE_TTL;          or set -g WTTR_CACHE_TTL 900
+set -q WTTR_BACKOFF;            or set -g WTTR_BACKOFF 1800
+set -q WTTR_TIMEOUT;            or set -g WTTR_TIMEOUT 2
+
 # left prompt only if safe
 if not type -q starship; and not set -q _tide_prompt_version
     __wttr_left_wrap
