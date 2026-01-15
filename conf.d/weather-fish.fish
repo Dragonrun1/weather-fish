@@ -15,7 +15,7 @@ set -q WTTR_BACKOFF;            or set -g WTTR_BACKOFF 1800
 set -q WTTR_TIMEOUT;            or set -g WTTR_TIMEOUT 30
 
 # left prompt only if safe
-if not type -q starship; and not set -q _tide_prompt_version
+if not type -q starship; and not type -q tide
     __wttr_left_wrap
 end
 

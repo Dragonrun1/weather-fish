@@ -5,7 +5,7 @@ function __wttr_fetch --description "Fetch wttr.in with TTL, guards, presets"
     # ---- guards ------------------------------------------------------------
     set -q WTTR_DISABLE_SSH; and set -q SSH_CONNECTION; and return
     set -q WTTR_DISABLE_STARSHIP; and type -q starship; and return
-    set -q WTTR_DISABLE_TIDE; and set -q _tide_prompt_version; and return
+    set -q WTTR_DISABLE_TIDE; and type -q tide; and return
 
     __wttr_dir_enabled; or return
     type -q curl; or return
