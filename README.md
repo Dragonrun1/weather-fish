@@ -187,6 +187,13 @@ set -g WTTR_LANGUAGE "fr"
 
 Instead of environment variables in `config.fish`, you can use a separate configuration file located at `~/.config/weather-fish/config.fish`. This file is sourced automatically if it exists.
 
+An example configuration file is provided in the project root as `config.fish.example`. You can use it as a starting point:
+
+```bash
+mkdir -p ~/.config/weather-fish
+cp config.fish.example ~/.config/weather-fish/config.fish
+```
+
 Example `config.fish`:
 
 ```fish
