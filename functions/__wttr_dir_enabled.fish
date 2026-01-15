@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2026 Michael Cummings
+# SPDX-License-Identifier: MIT
+
 function __wttr_dir_enabled --description "Return success if weather enabled here"
     set -l dir (pwd)
 

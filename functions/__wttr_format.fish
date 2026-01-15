@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2026 Michael Cummings
+# SPDX-License-Identifier: MIT
+
 function __wttr_format --description "Resolve wttr.in format"
     if set -q WTTR_PRESET
         switch $WTTR_PRESET

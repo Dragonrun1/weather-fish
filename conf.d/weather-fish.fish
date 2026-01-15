@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2026 Michael Cummings
+# SPDX-License-Identifier: MIT
+
 # ---- defaults -------------------------------------------------------------
 set -q WTTR_DISABLE_SSH;        or set -g WTTR_DISABLE_SSH 1
 set -q WTTR_DISABLE_STARSHIP;  or set -g WTTR_DISABLE_STARSHIP 1

@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2026 Michael Cummings
+# SPDX-License-Identifier: MIT
+
 function __wttr_fetch --description "Fetch wttr.in with TTL, guards, presets"
     # ---- guards ------------------------------------------------------------
     set -q WTTR_DISABLE_SSH; and set -q SSH_CONNECTION; and return

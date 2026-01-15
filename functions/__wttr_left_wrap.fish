@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2026 Michael Cummings
+# SPDX-License-Identifier: MIT
+
 function __wttr_left_wrap
     # skip transient prompt re‑rendering
     if test "$fish_transient_prompt" = "1"
