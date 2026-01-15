@@ -343,6 +343,18 @@ Weather data is fetched:
 
 No additional dependencies are required.
 
+## Testing
+
+`weather-fish` uses `doctest.fish` to verify that documentation examples remain correct.
+
+To run the tests, use the provided test runner:
+
+```fish
+fish tests/run_tests.fish
+```
+
+This will extract examples from the function files and verify them against the actual implementation.
+
 ## Design guarantees
 
   * Existing prompts are never overwritten

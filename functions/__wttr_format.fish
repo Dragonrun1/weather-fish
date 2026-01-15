@@ -2,6 +2,24 @@
 # SPDX-License-Identifier: MIT
 
 function __wttr_format --description "Resolve wttr.in format"
+#Examples:
+#    > set -e WTTR_PRESET
+#    > set -e WTTR_FORMAT
+#    > __wttr_format
+#    %c%t
+#
+#    > set -g WTTR_PRESET compact
+#    > __wttr_format
+#    %c %t
+#
+#    > set -g WTTR_PRESET full
+#    > __wttr_format
+#    %l: %c %t %h %w
+#
+#    > set -e WTTR_PRESET
+#    > set -g WTTR_FORMAT "%t"
+#    > __wttr_format
+#    %t
     if set -q WTTR_PRESET
         switch $WTTR_PRESET
             case compact
