@@ -37,10 +37,20 @@ function __wttr_fetch --description "Fetch wttr.in with TTL, guards, presets"
 
     # ---- url ---------------------------------------------------------------
     set -l format (__wttr_format)
-    set -l url "https://wttr.in?format=$format"
+    set -l query "format=$format"
+
+    if set -q WTTR_UNITS
+        set query "$query&$WTTR_UNITS"
+    end
+
+    if set -q WTTR_LANGUAGE
+        set query "$query&lang=$WTTR_LANGUAGE"
+    end
+
+    set -l url "https://wttr.in?$query"
     if set -q WTTR_DEFAULT_LOCATION
         set -l location (string replace -a ' ' '+' "$WTTR_DEFAULT_LOCATION")
-        set url "https://wttr.in/$location?format=$format"
+        set url "https://wttr.in/$location?$query"
     end
 
     # ---- fetch -------------------------------------------------------------

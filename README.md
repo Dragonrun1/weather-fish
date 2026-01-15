@@ -124,7 +124,7 @@ All configuration options are optional and global.
 ### Location
 
 By default, `weather-fish` uses your IP address to determine your location. You
-can override this by setting a default location:
+can override this by setting a default location in your `config.fish` (main or plugin-specific):
 
 ```fish
 set -g WTTR_DEFAULT_LOCATION "New York"
@@ -170,6 +170,34 @@ set -g WTTR_FORMAT "%c %t"
 If `WTTR_PRESET` is not set, `WTTR_FORMAT` overrides the default format of `%c%t`.
 
 Format strings follow [wttr.in conventions](https://github.com/chubin/wttr.in#format).
+
+### Units and Localization
+
+You can configure units and language for the weather data:
+
+```fish
+# Units: m (metric), u (USCS), or any other wttr.in supported unit flag
+set -g WTTR_UNITS "m"
+
+# Language: en, fr, de, etc.
+set -g WTTR_LANGUAGE "fr"
+```
+
+### Fish Configuration file
+
+Instead of environment variables in `config.fish`, you can use a separate configuration file located at `~/.config/weather-fish/config.fish`. This file is sourced automatically if it exists.
+
+Example `config.fish`:
+
+```fish
+# weather-fish configuration
+set -g WTTR_DEFAULT_LOCATION "Paris"
+set -g WTTR_UNITS "m"
+set -g WTTR_LANGUAGE "fr"
+set -g WTTR_COLOR 1
+set -g WTTR_CACHE_TTL 3600
+set -g WTTR_PRESET "compact"
+```
 
 ### Colorized output
 
