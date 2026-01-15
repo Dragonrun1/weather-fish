@@ -25,6 +25,12 @@ function __wttr_fetch --description "Fetch wttr.in with TTL, guards, presets"
 
     if test -f $meta
         read -l last slow_until < $meta
+        test -n "$slow_until"; or set slow_until 0
+        test -n "$last"; or set last 0
+
+        string match -qr '^[0-9]+$' "$slow_until"; or set slow_until 0
+        string match -qr '^[0-9]+$' "$last"; or set last 0
+
         test $now -lt $slow_until; and return
         test (math $now - $last) -lt $ttl; and return
     end
@@ -38,6 +44,8 @@ function __wttr_fetch --description "Fetch wttr.in with TTL, guards, presets"
     # ---- fetch -------------------------------------------------------------
     set -l out (curl -fsS --max-time $timeout $url ^/dev/null)
     if test $status -ne 0 -o -z "$out"
+        test -n "$last"; or set last 0
+        string match -qr '^[0-9]+$' "$last"; or set last 0
         echo "$last "(math $now + $backoff) > $meta
         return
     end
