@@ -222,6 +222,12 @@ set -g WTTR_COLOR 1
 
 By default, colorized output uses `cyan`.
 
+To match your prompt's background (and avoid "white triangles" or broken segments in frameworks like Tide), you can pass a full `set_color` string:
+
+```fish
+set -g WTTR_COLOR "--background blue cyan"
+```
+
 ### SSH and prompt framework guards
 
 By default, weather is disabled in the following environments:

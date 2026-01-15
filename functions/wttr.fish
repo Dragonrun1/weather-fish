@@ -8,7 +8,13 @@ function wttr --description "Print cached weather"
     set -l data (cat $file)
 
     if set -q WTTR_COLOR
-        set_color cyan
+        # If WTTR_COLOR is a valid color, use it. Otherwise default to cyan.
+        set -l color cyan
+        if test -n "$WTTR_COLOR"; and not test "$WTTR_COLOR" = 1
+            set color $WTTR_COLOR
+        end
+
+        set_color (string split " " -- $color)
         echo -n $data
         set_color normal
     else
