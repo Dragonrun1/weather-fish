@@ -255,9 +255,16 @@ No additional dependencies are required.
 ### No weather is displayed after installation
 1. **Wait for the first fetch**: `weather-fish` fetches weather *after* the prompt is rendered. Try pressing Enter once or twice.
 2. **Check for errors**: Run `__wttr_fetch` manually to see if there are any network errors (it usually fails silently).
-3. **Check cache**: See if `$XDG_CACHE_HOME/wttr/data` (or `~/.cache/wttr/data`) exists and contains data.
-4. **Framework conflicts**: If you use Starship or Tide, `weather-fish` defaults to the right prompt. Ensure your terminal is wide enough to show it.
-5. **Sentinel file**: Ensure you don't have a `.weather-fish-disable` file in your current or parent directories.
+3. **Manual test script**: You can run the following to see what `weather-fish` is doing:
+   ```fish
+   # Force a fetch and see output
+   rm -f (set -q XDG_CACHE_HOME; and echo $XDG_CACHE_HOME; or echo ~/.cache)/wttr/meta
+   __wttr_fetch
+   wttr
+   ```
+4. **Check cache**: See if `$XDG_CACHE_HOME/wttr/data` (or `~/.cache/wttr/data`) exists and contains data.
+5. **Framework conflicts**: If you use Starship or Tide, `weather-fish` defaults to the right prompt. Ensure your terminal is wide enough to show it.
+6. **Sentinel file**: Ensure you don't have a `.weather-fish-disable` file in your current or parent directories.
 
 ### Weather is not updating
 `weather-fish` uses a configurable cache (default: 15 minutes). It will not fetch new data until the TTL expires. You can force an update by deleting the `meta` file in the cache directory or by reducing `WTTR_CACHE_TTL`.
