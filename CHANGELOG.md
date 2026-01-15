@@ -5,6 +5,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v0.1.2] - 2026-01-14
+
+### Added
+- Configurable cache TTL, backoff duration, and network timeout.
+- New configuration variables: `WTTR_CACHE_TTL`, `WTTR_BACKOFF`, and `WTTR_TIMEOUT`.
+- SPDX license headers to all scripts for better compliance and tracking.
+- Status badges (Release, License, Fish version) to README.
+- Detailed troubleshooting and manual installation sections in README.
+
+### Changed
+- Converted `LICENSE` to `LICENSE.md` (formatted Markdown).
+- Improved README layout and clarified configuration priority (Presets vs Format).
+- Updated default format to `%c%t` (no space) to match implementation.
+- Refactored `__wttr_left_wrap` to skip transient prompt re-rendering.
+
 ## [v0.1.1] - 2026-01-14
 
 ### Added
