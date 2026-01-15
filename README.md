@@ -228,6 +228,22 @@ To match your prompt's background (and avoid "white triangles" or broken segment
 set -g WTTR_COLOR "--background blue cyan"
 ```
 
+By default, `weather-fish` automatically detects Tide or Starship and places the weather in the right prompt to avoid interfering with their complex left prompts.
+
+### Manual Left Prompt Integration (Tide)
+
+If you prefer to have the weather in your Tide left prompt:
+
+1.  **Disable automatic right prompt**: Set `WTTR_DISABLE_TIDE` to `0` in your `config.fish`.
+    ```fish
+    set -g WTTR_DISABLE_TIDE 0
+    ```
+2.  **Add to Tide items**: Add `wttr` to your `tide_left_prompt_items`.
+    ```fish
+    set -gp tide_left_prompt_items wttr
+    ```
+3.  **Configure colors**: Match Tide's background colors using `WTTR_COLOR` as described in the [Colorized output](#colorized-output) section.
+
 ### SSH and prompt framework guards
 
 By default, weather is disabled in the following environments:
