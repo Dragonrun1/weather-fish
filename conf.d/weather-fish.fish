@@ -2,10 +2,7 @@
 # SPDX-License-Identifier: MIT
 
 # Load configuration from file first
-set -l __wttr_config_file (set -q XDG_CONFIG_HOME; and echo $XDG_CONFIG_HOME; or echo ~/.config)/weather-fish/config.fish
-if test -f "$__wttr_config_file"
-    source "$__wttr_config_file"
-end
+__wttr_load_config
 
 # ---- defaults -------------------------------------------------------------
 set -q WTTR_DISABLE_SSH;        or set -g WTTR_DISABLE_SSH 1
