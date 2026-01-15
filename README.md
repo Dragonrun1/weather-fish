@@ -103,8 +103,17 @@ wttr
 
 This command **never performs a network request**. It only prints cached data.
 
+To force a network fetch and update the cache:
+
+```fish
+wttr-fetch
+```
+
+This is useful during configuration to see your changes immediately.
+
 > **Note**: `wttr` prints the data exactly as cached (using `echo -n`), so it
-> may not append a newline when run directly in the terminal.
+> may not append a newline when run directly in the terminal. `wttr-fetch`
+> appends a newline for better readability.
 
 Integration is done by wrapping the existing prompt, not redefining it.
 
@@ -255,13 +264,11 @@ No additional dependencies are required.
 ### No weather is displayed after installation
 1. **Wait for the first fetch**: `weather-fish` fetches weather *after* the prompt is rendered. Try pressing Enter once or twice.
 2. **Check for errors**: Run `__wttr_fetch` manually to see if there are any network errors (it usually fails silently).
-3. **Manual test script**: You can run the following to see what `weather-fish` is doing:
+3. **Force a fetch**: You can use the `wttr-fetch` command to bypass the cache and see what's happening:
    ```fish
-   # Force a fetch and see output
-   rm -f (set -q XDG_CACHE_HOME; and echo $XDG_CACHE_HOME; or echo ~/.cache)/wttr/meta
-   __wttr_fetch
-   wttr
+   wttr-fetch
    ```
+   If this fails, it might display error messages from `curl`.
 4. **Check cache**: See if `$XDG_CACHE_HOME/wttr/data` (or `~/.cache/wttr/data`) exists and contains data.
 5. **Framework conflicts**: If you use Starship or Tide, `weather-fish` defaults to the right prompt. Ensure your terminal is wide enough to show it.
 6. **Sentinel file**: Ensure you don't have a `.weather-fish-disable` file in your current or parent directories.
