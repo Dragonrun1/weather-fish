@@ -10,7 +10,8 @@ function __wttr_fetch --description "Fetch wttr.in with TTL, guards, presets"
         set -q _flag_verbose; and echo "WTTR disabled due to SSH"
         return
     end
-    if test "$WTTR_DISABLE_STARSHIP" = 1; and type -q starship
+    # Only disable if NOT a custom starship module
+    if test "$WTTR_DISABLE_STARSHIP" = 1; and type -q starship; and not set -q STARSHIP_SHELL
         set -q _flag_verbose; and echo "WTTR disabled due to starship"
         return
     end

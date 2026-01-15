@@ -281,13 +281,27 @@ If you want to move the weather to the right prompt while using Starship, Tide, 
 export WTTR_PROMPT_SIDE=right
 ```
 
-#### Disable Starship Integration
+#### Native Starship Module (Custom Module)
 
-If you wish to disable it while using Starship:
+For even better integration, you can use `weather-fish` as a [Starship custom module](https://starship.rs/config/#custom-commands). This allows you to place the weather anywhere in your Starship layout and leverage Starship's styling.
 
-```fish
-export WTTR_DISABLE_STARSHIP=1
-```
+1.  **Disable automatic integration** in your Fish config to prevent double-printing in the prompt:
+    ```fish
+    export WTTR_DISABLE_STARSHIP=1
+    ```
+    *Note: Even when disabled, background fetching continues to work when called by Starship.*
+
+2.  **Add the custom module** to your `~/.config/starship.toml`:
+    ```toml
+    [custom.weather]
+    command = "wttr"
+    when = "true"
+    shell = ["fish", "--command"]
+    format = "[$output]($style) "
+    style = "cyan" # Match your WTTR_COLOR if desired
+    ```
+
+3.  **Add the module to your prompt** by adding `${custom.weather}` to the `format` or `right_format` in `starship.toml`.
 
 ## Per-directory disable
 

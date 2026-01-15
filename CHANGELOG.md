@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v0.2.13] - 2026-01-15
+
+### Added
+- Instructions and support for using `weather-fish` as a native Starship custom module.
+- Modified `__wttr_fetch` to allow background updates even when Starship integration is disabled, provided it's being called from within a Starship shell.
+
 ## [v0.2.12] - 2026-01-15
 
 ### Added
