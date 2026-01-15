@@ -57,6 +57,29 @@ Restart your shell or reload the configuration:
 ```fish
 source ~/.config/fish/config.fish
 ```
+
+## Updating
+
+### Using fisher
+
+```fish
+fisher update Dragonrun1/weather-fish
+```
+
+### Manual Update
+
+Pull the latest changes from the repository and overwrite the files:
+
+```bash
+cd weather-fish
+git pull
+cp conf.d/*.fish ~/.config/fish/conf.d/
+cp functions/*.fish ~/.config/fish/functions/
+cp completions/*.fish ~/.config/fish/completions/
+```
+
+Restart your shell or reload the configuration.
+
 ## Usage
 
 ### Summary of Prompt Support
