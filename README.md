@@ -20,7 +20,7 @@ and Tide.
 - 🐢 Slow-network detection with automatic backoff
 - 🧵 Non-blocking prompt updates
 - 🧩 Safe left-prompt prepending (no prompt overwrite)
-- 👉 Right-prompt auto-fallback for Starship and Tide
+- 👉 Right-prompt auto-fallback for Fish, Starship, and Tide
 - 🎨 Optional colorized output
 - 📁 Per-directory disable via sentinel file
 - ⚙️ Format presets and custom formats
@@ -86,12 +86,12 @@ Restart your shell or reload the configuration.
 
 `weather-fish` automatically detects your environment and places the weather accordingly:
 
-| Environment    | Weather display         | Logic                    |
-|----------------|-------------------------|--------------------------|
-| **Plain Fish** | Left prompt (prepended) | Wraps `fish_prompt`      |
-| **Starship**   | Right prompt            | Uses `fish_right_prompt` |
-| **Tide**       | Left prompt             | Uses Tide's item system  |
-| **SSH**        | Disabled (default)      | Checks `$SSH_CONNECTION` |
+| Environment    | Weather display            | Logic                    |
+|----------------|----------------------------|--------------------------|
+| **Plain Fish** | Left (default) or Right    | Wraps prompt functions   |
+| **Starship**   | Left (default) or Right    | Wraps prompt functions   |
+| **Tide**       | Left (default) or Right    | Uses Tide's item system  |
+| **SSH**        | Disabled (default)         | Checks `$SSH_CONNECTION` |
 
 ### Command usage
 
@@ -123,16 +123,38 @@ Integration is done by wrapping the existing prompt, not redefining it.
 
 ## Configuration
 
-All configuration options are optional and global.
+All configuration options are optional. The recommended way to configure `weather-fish` is via its own configuration file.
 
-### Location
+### Fish Configuration file (Recommended)
 
-By default, `weather-fish` uses your IP address to determine your location. You
-can override this by setting a default location in your `config.fish` (main or plugin-specific):
+You can use a separate configuration file located at `~/.config/weather-fish/config.fish`. This file is sourced automatically if it exists.
+
+An example configuration file is provided in the project root as `config.fish.example`. You can use it as a starting point:
 
 ```fish
-set -g WTTR_DEFAULT_LOCATION "New York"
+mkdir -p ~/.config/weather-fish
+cp config.fish.example ~/.config/weather-fish/config.fish
 ```
+
+When using this file, we recommend using `export` to ensure the variables are available to the fetch process:
+
+```fish
+# ~/.config/weather-fish/config.fish
+
+export WTTR_DEFAULT_LOCATION="Paris"
+export WTTR_UNITS="m"
+export WTTR_LANGUAGE="fr"
+export WTTR_COLOR=1
+export WTTR_CACHE_TTL=3600
+export WTTR_PRESET="compact"
+```
+
+### Configuration Options
+
+#### Location
+
+By default, `weather-fish` uses your IP address to determine your location. You
+can override this by setting `WTTR_DEFAULT_LOCATION`.
 
 Accepted values include:
 
@@ -141,15 +163,11 @@ Accepted values include:
   * Domain names (e.g., `@google.com`)
   * `latitude,longitude` (e.g., `-37.817,144.967`)
 
-### Format configuration
+#### Format & Presets
 
-#### Presets (recommended)
+##### Presets (recommended)
 
-```fish
-set -g WTTR_PRESET compact
-```
-
-Available presets:
+Available presets via `WTTR_PRESET`:
 
 | Preset    | Output            |
 |-----------|-------------------|
@@ -158,118 +176,118 @@ Available presets:
 | `temp`    | `%t`              |
 | `full`    | `%l: %c %t %h %w` |
 
-If no preset is matched, the default of `%c%t` is used.
+If no preset is matched, the default of `%c%t` is used. If `WTTR_PRESET` is set, it overrides `WTTR_FORMAT`.
 
-If `WTTR_PRESET` is set, it overrides `WTTR_FORMAT` and the default format.
+##### Custom format
 
+To fully control output, set `WTTR_FORMAT`. Format strings follow [wttr.in conventions](https://github.com/chubin/wttr.in#format).
 
-#### Custom format
+#### Units and Localization
 
-To fully control output:
+*   `WTTR_UNITS`: `m` (metric), `u` (USCS), or any other wttr.in supported unit flag.
+*   `WTTR_LANGUAGE`: `en`, `fr`, `de`, etc.
 
-```fish
-set -g WTTR_FORMAT "%c %t"
-```
+#### Colorized output
 
-If `WTTR_PRESET` is not set, `WTTR_FORMAT` overrides the default format of `%c%t`.
+Color output is disabled by default. Enable it by setting `WTTR_COLOR` to `1`.
 
-Format strings follow [wttr.in conventions](https://github.com/chubin/wttr.in#format).
-
-### Units and Localization
-
-You can configure units and language for the weather data:
+By default, colorized output uses `cyan`. To match your prompt's background (and avoid "white triangles" or broken segments in frameworks like Tide), you can pass a full `set_color` string:
 
 ```fish
-# Units: m (metric), u (USCS), or any other wttr.in supported unit flag
-set -g WTTR_UNITS "m"
-
-# Language: en, fr, de, etc.
-set -g WTTR_LANGUAGE "fr"
+export WTTR_COLOR="--background blue cyan"
 ```
 
-### Fish Configuration file
-
-Instead of environment variables in `config.fish`, you can use a separate configuration file located at `~/.config/weather-fish/config.fish`. This file is sourced automatically if it exists.
-
-An example configuration file is provided in the project root as `config.fish.example`. You can use it as a starting point:
-
-```bash
-mkdir -p ~/.config/weather-fish
-cp config.fish.example ~/.config/weather-fish/config.fish
-```
-
-Example `config.fish`:
-
-```fish
-# weather-fish configuration
-set -g WTTR_DEFAULT_LOCATION "Paris"
-set -g WTTR_UNITS "m"
-set -g WTTR_LANGUAGE "fr"
-set -g WTTR_COLOR 1
-set -g WTTR_CACHE_TTL 3600
-set -g WTTR_PRESET "compact"
-```
-
-### Colorized output
-
-Color output is disabled by default.
-
-Enable it with:
-
-```fish
-set -g WTTR_COLOR 1
-```
-
-By default, colorized output uses `cyan`.
-
-To match your prompt's background (and avoid "white triangles" or broken segments in frameworks like Tide), you can pass a full `set_color` string:
-
-```fish
-set -g WTTR_COLOR "--background blue cyan"
-```
-
-By default, `weather-fish` automatically detects Tide or Starship and places the weather in the prompt to avoid interfering with their complex setups. For Tide, it adds itself as a prompt item. For Starship, it uses the right prompt.
-
-### Tide Integration
-
-`weather-fish` provides a custom Tide item `wttr`. It automatically attempts to add `wttr` to your `tide_left_prompt_items` if it's not already present in either left or right prompt items.
-
-If you want to move it to the right prompt:
-1.  **Remove from left prompt**:
-    ```fish
-    set -e (contains -i wttr $tide_left_prompt_items)
-    ```
-2.  **Add to right prompt**:
-    ```fish
-    set -gp tide_right_prompt_items wttr
-    ```
-
-### SSH and prompt framework guards
-
-By default, weather is disabled in the following environments:
-
-```fish
-set -g WTTR_DISABLE_SSH 1
-set -g WTTR_DISABLE_STARSHIP 1
-set -g WTTR_DISABLE_TIDE 1
-```
-
-Set any of these to `0` to force-enable weather in that environment
-(e.g., if you want weather in your Starship right prompt).
-
-### Cache and timeout configuration
-
-```fish
-set -g WTTR_CACHE_TTL 900
-set -g WTTR_BACKOFF 1800
-set -g WTTR_TIMEOUT 30
-```
+#### Cache and timeout configuration
 
 | Variable | Default | Description |
 |----------|---------|-------------|
 | `WTTR_CACHE_TTL` | `900` | Cache duration in seconds (15 minutes). |
 | `WTTR_BACKOFF` | `1800` | Backoff duration in seconds after a failed fetch (30 minutes). |
 | `WTTR_TIMEOUT` | `30` | Network timeout for `curl` in seconds. |
+
+#### SSH and prompt framework guards
+
+By default, weather is enabled in all environments. You can disable it for specific frameworks by setting these to `1`:
+
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `WTTR_DISABLE_SSH` | `1` | Set to `1` to disable in SSH sessions (default). |
+| `WTTR_DISABLE_STARSHIP` | `0` | Set to `1` to disable when Starship is detected. |
+| `WTTR_DISABLE_TIDE` | `0` | Set to `1` to disable when Tide is detected. |
+
+When Starship is detected but its integration is disabled (`WTTR_DISABLE_STARSHIP=1`), or when Tide is used but `wttr` is not in its prompt items, `weather-fish` will automatically fall back to showing the weather in the right prompt (`fish_right_prompt`).
+
+#### Prompt Side
+
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `WTTR_PROMPT_SIDE` | `left` | Position of weather for plain Fish, Starship, and Tide (`left` or `right`). |
+
+### Overriding configuration in a session
+
+You can override any configuration option in your current terminal session.
+
+#### With exporting
+
+If you want the change to take effect for future weather fetches in the current session (recommended):
+
+```fish
+export WTTR_PRESET="full"
+```
+
+#### Without exporting (Global variables)
+
+You can also set a global fish variable, which will be picked up by the next fetch:
+
+```fish
+set -g WTTR_PRESET "full"
+```
+
+Note that `export` (which sets an environment variable) is generally preferred for ensuring the background fetch process sees the updated value immediately.
+
+### Tide Integration
+
+`weather-fish` provides a custom Tide item `wttr` via the `functions/_tide_item_wttr.fish` file. It automatically attempts to add `wttr` to your `tide_left_prompt_items` (or `tide_right_prompt_items` if `WTTR_PROMPT_SIDE` is set to `right`) if it's not already present in either left or right prompt items.
+
+For more information on customizing Tide, see the [Tide documentation](https://github.com/IlanCosman/tide).
+
+If you want to move it to the right prompt:
+
+```fish
+export WTTR_PROMPT_SIDE=right
+```
+
+Alternatively, you can manually manage Tide items:
+1.  **Remove from the left prompt**:
+    ```fish
+    set -e (contains -i wttr $tide_left_prompt_items)
+    ```
+2.  **Add to the right prompt**:
+    ```fish
+    set -gp tide_right_prompt_items wttr
+    ```
+
+### Starship Integration
+
+`weather-fish` prepends the weather to your `fish_prompt` by wrapping it, which works seamlessly with Starship as it also relies on `fish_prompt`. By default, it is enabled when Starship is detected and placed in the left prompt.
+
+For more information on configuring Starship, see the [Starship documentation](https://starship.rs).
+
+#### Change Prompt Side
+
+If you want to move the weather to the right prompt while using Starship, Tide, or plain Fish:
+
+```fish
+export WTTR_PROMPT_SIDE=right
+```
+
+#### Disable Starship Integration
+
+If you wish to disable it while using Starship:
+
+```fish
+export WTTR_DISABLE_STARSHIP=1
+```
 
 ## Per-directory disable
 
@@ -331,7 +349,7 @@ No additional dependencies are required.
    ```
    This will show cache status, URL being fetched, and any errors from `curl`.
 4. **Check cache**: See if `$XDG_CACHE_HOME/wttr/data` (or `~/.cache/wttr/data`) exists and contains data.
-5. **Framework conflicts**: If you use Starship or Tide, `weather-fish` defaults to the right prompt. Ensure your terminal is wide enough to show it.
+5. **Framework conflicts**: If you use Tide, `weather-fish` defaults to the left prompt. Ensure your terminal is wide enough to show it.
 6. **Sentinel file**: Ensure you don't have a `.weather-fish-disable` file in your current or parent directories.
 
 ### Weather is not updating

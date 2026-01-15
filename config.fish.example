@@ -3,37 +3,41 @@
 
 # --- Location ---
 # By default, weather-fish uses your IP address to determine your location.
-# set -g WTTR_DEFAULT_LOCATION "New York"
+# export WTTR_DEFAULT_LOCATION "New York"
 
 # --- Appearance ---
 # Available presets: compact, icon, temp, full
-# set -g WTTR_PRESET "compact"
+# export WTTR_PRESET "compact"
 
 # Custom format (overridden by WTTR_PRESET if set)
-# set -g WTTR_FORMAT "%c%t"
+# export WTTR_FORMAT "%c%t"
 
 # Enable colorized output (0: disabled, 1: enabled)
-# set -g WTTR_COLOR 1
+# export WTTR_COLOR 1
 
 # --- Units and Localization ---
 # Units: m (metric), u (USCS)
-# set -g WTTR_UNITS "m"
+# export WTTR_UNITS "m"
 
 # Language: en, fr, de, etc.
-# set -g WTTR_LANGUAGE "en"
+# export WTTR_LANGUAGE "en"
 
 # --- Cache and Network ---
 # Cache duration in seconds (default: 900 / 15 minutes)
-# set -g WTTR_CACHE_TTL 900
+# export WTTR_CACHE_TTL 900
 
 # Backoff duration in seconds after a failed fetch (default: 1800 / 30 minutes)
-# set -g WTTR_BACKOFF 1800
+# export WTTR_BACKOFF 1800
 
 # Network timeout for curl in seconds (default: 30)
-# set -g WTTR_TIMEOUT 30
+# export WTTR_TIMEOUT 30
 
 # --- Environment Guards ---
-# Set to 0 to force-enable weather in these environments
-# set -g WTTR_DISABLE_SSH 1
-# set -g WTTR_DISABLE_STARSHIP 1
-# set -g WTTR_DISABLE_TIDE 1
+# Set to 1 to disable weather in these environments
+# export WTTR_DISABLE_SSH 1
+# export WTTR_DISABLE_STARSHIP 1
+# export WTTR_DISABLE_TIDE 1
+
+# --- Prompt Integration ---
+# Position for plain Fish, Starship, and Tide (left, right)
+# export WTTR_PROMPT_SIDE left
