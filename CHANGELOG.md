@@ -5,6 +5,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v0.2.12] - 2026-01-15
+
+### Added
+- `WTTR_PROMPT_SIDE` variable to choose between `left` (default) and `right` prompt for Fish, Starship, and Tide.
+- Improved fallback logic for `fish_right_prompt` to automatically show weather when prompt wrapping is disabled or not explicitly handled.
+- New `__wttr_right_wrap` function for right-prompt integration.
+
+### Changed
+- Refactored internal scripts to centralize cache logic in `__wttr_cache_dir`.
+- Modernized directory-enabled check with cleaner path traversal.
+- Updated defaults: `WTTR_DISABLE_STARSHIP` and `WTTR_DISABLE_TIDE` now default to `0` (enabled) for better out-of-the-box experience.
+- `config.fish.example` now uses `export` as the recommended configuration method.
+
+### Fixed
+- Improved consistency of weather display across different prompt frameworks.
+
 ## [v0.2.11] - 2026-01-15
 
 ### Fixed
