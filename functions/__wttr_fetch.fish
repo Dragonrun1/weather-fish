@@ -28,22 +28,18 @@ function __wttr_fetch --description "Fetch wttr.in with TTL, guards, presets"
         return
     end
 
-    # ---- constants ---------------------------------------------------------
+    # ---- cache -------------------------------------------------------------
+    set -l dir (__wttr_cache_dir)
+    set -l data $dir/data
+    set -l meta $dir/meta
+    mkdir -p $dir
+
     set -l ttl $WTTR_CACHE_TTL
     set -l backoff $WTTR_BACKOFF
     set -l timeout $WTTR_TIMEOUT
     set -l now (date +%s)
 
-    if set -q _flag_verbose
-        echo "__wttr_fetch called"
-    end
-
-    # ---- cache -------------------------------------------------------------
-    set -l root (set -q XDG_CACHE_HOME; and echo $XDG_CACHE_HOME; or echo ~/.cache)
-    set -l dir $root/wttr
-    set -l data $dir/data
-    set -l meta $dir/meta
-    mkdir -p $dir
+    set -q _flag_verbose; and echo "__wttr_fetch called"
 
     if test -f $meta
         read -l last slow_until < $meta
