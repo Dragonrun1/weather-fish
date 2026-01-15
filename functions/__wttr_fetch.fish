@@ -6,15 +6,15 @@ function __wttr_fetch --description "Fetch wttr.in with TTL, guards, presets"
     or return
 
     # ---- guards ------------------------------------------------------------
-    if set -q WTTR_DISABLE_SSH; and set -q SSH_CONNECTION
+    if test "$WTTR_DISABLE_SSH" = 1; and set -q SSH_CONNECTION
         set -q _flag_verbose; and echo "WTTR disabled due to SSH"
         return
     end
-    if set -q WTTR_DISABLE_STARSHIP; and type -q starship
+    if test "$WTTR_DISABLE_STARSHIP" = 1; and type -q starship
         set -q _flag_verbose; and echo "WTTR disabled due to starship"
         return
     end
-    if set -q WTTR_DISABLE_TIDE; and type -q tide
+    if test "$WTTR_DISABLE_TIDE" = 1; and type -q tide
         set -q _flag_verbose; and echo "WTTR disabled due to tide"
         return
     end
