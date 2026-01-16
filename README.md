@@ -30,6 +30,11 @@ and Tide.
 
 ---
 
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for development guidelines and the pull
+request process.
+
 ## Installation
 
 ### Using [fisher](https://github.com/jorgebucaran/fisher) (recommended)
