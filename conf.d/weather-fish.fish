@@ -14,6 +14,13 @@ set -q WTTR_CACHE_TTL;          or set -g WTTR_CACHE_TTL 900
 set -q WTTR_BACKOFF;            or set -g WTTR_BACKOFF 1800
 set -q WTTR_TIMEOUT;            or set -g WTTR_TIMEOUT 30
 
+# --- Starship integration -----------------------------------------------
+if not set -q WTTR_DISABLE_STARSHIP; or test "$WTTR_DISABLE_STARSHIP" != 1
+    if __wttr_using_starship
+        set -gx WEATHER_FISH_OUTPUT (__wttr_render_starship)
+    end
+end
+
 # prompt side (left or right)
 set -q WTTR_PROMPT_SIDE;        or set -g WTTR_PROMPT_SIDE left
 
