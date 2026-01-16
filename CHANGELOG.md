@@ -5,6 +5,27 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.18] - 2026-01-16
+
+### Added
+- Shared render core to support multiple prompt integrations.
+- Starship-specific render path and detection helper.
+- Environment-based Starship integration via custom module support.
+
+### Changed
+- Split rendering logic into core, Fish, and Starship implementations.
+- Export weather output only for Starship consumption.
+- Update example configuration to use global Fish variables (`set -g`).
+
+### Fixed
+- Prevent prompt-side configuration from affecting Starship layouts.
+- Correct documentation that previously recommended `export` for configuration.
+
+### Documentation
+- Clarify Starship integration behavior and limitations.
+- Document that `WTTR_PROMPT_SIDE` applies only to Fish and Tide.
+- Align README configuration examples with actual config loading behavior.
+
 ## [0.2.17] - 2026-01-15
 
 ### Added
